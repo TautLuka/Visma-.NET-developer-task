@@ -117,7 +117,7 @@ while (true)
                     }
                     else
                     {
-                        meetings.TerminalResponse("Syntax error. Use: /list", "red");
+                        meetings.TerminalResponse("Syntax error. Use: /list|description, responsiblePerson, category, type, attendees|target|", "red");
                         break;
                     }
 
@@ -145,7 +145,7 @@ while (true)
                     }
                     else
                     {
-                        meetings.TerminalResponse("Syntax error. Use: /list", "red");
+                        meetings.TerminalResponse("Syntax error. Use: /list|date|from|firstDate|", "red");
                         break;
                     }
 
@@ -172,18 +172,18 @@ while (true)
                     }
                     else
                     {
-                        meetings.TerminalResponse("Syntax error. Use: /list", "red");
+                        meetings.TerminalResponse("Syntax error. Use: /list|date|between|firstDate|secondDate|", "red");
                         break;
                     }
                 }
                 else
                 {
-                    meetings.TerminalResponse("Syntax error. Use: /list", "red");
+                    meetings.TerminalResponse("Syntax error. Type /help", "red");
                     break;
                 }
             }
 
-            meetings.TerminalResponse("Syntax error. Use: /list", "red");
+            meetings.TerminalResponse("Syntax error. Type /help", "red");
             break;
 
         case "/deleteMeeting":
@@ -199,7 +199,7 @@ while (true)
 
             meetings.TerminalResponse("Syntax error. Use: /deleteMeeting|yourName|meetingName|", "red");
             break;
-        //no
+
         case "/addPerson":
 
             if (result.Count() == 4)
@@ -256,8 +256,10 @@ while (true)
             Console.WriteLine("/addPerson|personName|meetingName|startTime|");
             Console.WriteLine("/deleteMeeting|personName|meetingName|");
             Console.WriteLine("/deletePerson|personName|meetingName|");
-            Console.WriteLine("/list");
-            Console.WriteLine("/list|");
+            Console.WriteLine("/list - to list all meetings");
+            Console.WriteLine("/list|description, responsiblePerson, category, type, attendees|target|");
+            Console.WriteLine("/list|date|from|firstDate|");
+            Console.WriteLine("/list|date|between|firstDate|secondDate|");
             Console.WriteLine("/save");
             Console.WriteLine("/load");
             Console.WriteLine("/exit");
