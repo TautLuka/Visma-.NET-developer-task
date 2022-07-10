@@ -37,9 +37,7 @@ namespace VismaTask
 
                 var meetings = JsonConvert.DeserializeObject<List<Meeting>>(jsonData);
 
-
                 _meetings.Clear();
-
 
                 foreach (var meeting in meetings)
                 {
@@ -72,7 +70,7 @@ namespace VismaTask
         public void AddMeeting(Meeting meeting)
         {
             //checks if there is a meeting with the same name
-            if (!meetingExists(meeting.Name))
+            if (!MeetingExists(meeting.Name))
             {
                 //checks if the dates make sense
                 if (meeting.StartDate < meeting.EndDate)
@@ -80,7 +78,7 @@ namespace VismaTask
                     //creates a meeting
                     _meetings.Add(meeting);
 
-                    //adds a responsible person to the meetings atendees list
+                    //adds a responsible person to the meeting atendees list
                     AddPeople(meeting.Name, meeting.ResponsiblePerson, true, meeting.StartDate);
 
                     TerminalResponse("Meeting was created successfully.", "green");
@@ -205,10 +203,10 @@ namespace VismaTask
         public void AddPeople(string meetName, string personName, bool personResponsible, DateTime personStartTime)
         {
             //checks if the given meeting name exists
-            if (meetingExists(meetName))
+            if (MeetingExists(meetName))
             {
                 //finds the index of the desired meeting
-                int meetId = meetingIndex(meetName);
+                int meetId = MeetingIndex(meetName);
 
                 //gets the meeting start time and end time
                 DateTime meetStartTime = _meetings[meetId].StartDate;
@@ -218,7 +216,7 @@ namespace VismaTask
                 DateTime personEndTime = meetEndTime;
 
                 //checks if person that we are trying to add, already participates in this meeting
-                if (!personExistsInMeeting(meetId, personName))
+                if (!PersonExistsInMeeting(meetId, personName))
                 {
                     //checks if meeting did start or it has already ended
                     if (meetStartTime <= personStartTime && meetEndTime > personStartTime)
@@ -276,13 +274,13 @@ namespace VismaTask
         public void RemovePeople(string personName, string meetName)
         {
             //checks if the given meeting name exists
-            if (meetingExists(meetName))
+            if (MeetingExists(meetName))
             {
                 //finds the index of meeting
-                int meetId = meetingIndex(meetName);
+                int meetId = MeetingIndex(meetName);
 
                 //checks if person that we are trying to remove, participates in this meeting and he is not responsible for it
-                if (personExistsInMeeting(meetId, personName) && !personIsResponsible(meetName, personName))
+                if (PersonExistsInMeeting(meetId, personName) && !PersonIsResponsible(meetName, personName))
                 {
                     //gets the person id and removes it
                     int personId = _meetings[meetId].People.FindIndex(i => i.Name == personName);
@@ -305,10 +303,10 @@ namespace VismaTask
         public void DeleteMeeting(string personName, string meetName)
         {
             //checks if the meeting name exists and person is responsible for it
-            if (meetingExists(meetName) && personIsResponsible(meetName, personName))
+            if (MeetingExists(meetName) && PersonIsResponsible(meetName, personName))
             {
                 //finds the id of the meeting
-                int meetId = meetingIndex(meetName);
+                int meetId =MeetingIndex(meetName);
 
                 _meetings.RemoveAt(meetId);
 
@@ -321,7 +319,7 @@ namespace VismaTask
         }
 
         //checks if person is responsible for the meeting
-        public bool personIsResponsible(string meetName, string personName)
+        public bool PersonIsResponsible(string meetName, string personName)
         {
             if (_meetings.Exists(i => i.ResponsiblePerson == personName && i.Name == meetName))
             {
@@ -331,7 +329,7 @@ namespace VismaTask
         }
 
         //checks if person exists in the meeting
-        public bool personExistsInMeeting(int meetId, string personName)
+        public bool PersonExistsInMeeting(int meetId, string personName)
         {
 
             if (_meetings[meetId].People.Exists(i => i.Name == personName))
@@ -342,7 +340,7 @@ namespace VismaTask
         }
 
         //checks if the meeting exists
-        public bool meetingExists(string meetName)
+        public bool MeetingExists(string meetName)
         {
             if (_meetings.Exists(i => i.Name == meetName))
             {
@@ -352,13 +350,13 @@ namespace VismaTask
         }
 
         //gets the desired meeting Id
-        public int meetingIndex(string meetName)
+        public int MeetingIndex(string meetName)
         {
             return _meetings.FindIndex(i => i.Name == meetName);
         }
 
         //checks if the given date format is correct
-        public bool validDate(string date)
+        public bool ValidDate(string date)
         {
             DateTime temp;
 

@@ -6,7 +6,7 @@ var meetings = new Meetings();
 string[] result;
 string userInput;
 
-//delimeters
+//delimeters for splitting user input string
 string[] delimeters = new string[] { " | ", "| ", " |", "|" };
 
 //loads a save file
@@ -31,7 +31,6 @@ while (true)
 
             if (result.Count() == 8)
             {
-
                 var name = result[1];
                 var responsiblePerson = result[2];
                 var description = result[3];
@@ -79,7 +78,7 @@ while (true)
                 }
 
 
-                if (!meetings.validDate(result[6]) || !meetings.validDate(result[7]))
+                if (!meetings.ValidDate(result[6]) || !meetings.ValidDate(result[7]))
                 {
                     break;
                 }
@@ -133,7 +132,7 @@ while (true)
                         filter = result[1];
                         target = result[2];
 
-                        if (!meetings.validDate(result[3]))
+                        if (!meetings.ValidDate(result[3]))
                         {
                             break;
                         }
@@ -159,7 +158,7 @@ while (true)
                         filter = result[1];
                         target = result[2];
 
-                        if (!meetings.validDate(result[3]) || !meetings.validDate(result[4]))
+                        if (!meetings.ValidDate(result[3]) || !meetings.ValidDate(result[4]))
                         {
                             break;
                         }
@@ -209,7 +208,7 @@ while (true)
                 var meetName = result[2];
                 var startTime = result[3];
 
-                if (!meetings.validDate(result[3]))
+                if (!meetings.ValidDate(result[3]))
                 {
                     break;
                 }
